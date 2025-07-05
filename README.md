@@ -42,6 +42,16 @@ Planned additions:
 
 ---
 
+## 🗂️ Data Source
+
+This project uses sample LOBSTER data to simulate and analyze order book behavior.
+
+You can download a test dataset directly from the official LOBSTER site:
+
+🔗 [LOBSTER Sample Data](https://lobsterdata.com/info/DataSamples.php)
+
+---
+
 ## 🧠 Background
 
 This project uses high-resolution LOBSTER data to simulate and understand micro-level order book dynamics. It is useful for researchers, quants, and technologists interested in market microstructure, algo trading behavior, and price formation.
