@@ -93,7 +93,7 @@ bors:N?`buy`sell
 /md_sim[;;]' [tlist;qlist;bors]
 
 mktRecIteration each til N;
-sumT:flip `tradeTime`recTime`RecPeriod`quantity`dirt`exePrice`bestMarket`imb_pre`imb_rec!(tlist;recTime;recTime-tlist;qlist;bors;exP;bestMP;imb_pre;imb_rec)
+sumT:flip `tradeTime`recTime`RecPeriod`quantity`BuySell`exePrice`bestMarket`imb_pre`imb_rec!(tlist;recTime;recTime-tlist;qlist;bors;exP;bestMP;imb_pre;imb_rec)
 show sumT
 
 /further analysis

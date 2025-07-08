@@ -11,7 +11,7 @@ message: flip `time`EventType`OrderID`Size`Price`Direction!tmp
 d:(24#"JI"; ",") 0: hsym `$"MSFT_2012-06-21_orderbook_10.csv"
 OB6:flip (`$(raze ("askprice_";"asksize_";"bidprice_";"bidsize_"),\:/: ("1";"2";"3";"4";"5";"6")))!d
 OB5:flip (20#cols OB6)!OB6[20#cols OB6] 
-OB6:flip (-4#cols OB6)!OB6[-4#cols OB6] /with 4 columns askprice_6,asksize_6,bidprice_6,bidsize_6
+OB6:flip (-4#cols OB6)!OB6[-4#cols OB6] /taking 4 columns askprice_6,asksize_6,bidprice_6,bidsize_6
 initbk:OB5@0; l:count OB5;
 
 
@@ -54,7 +54,6 @@ replay:{[bk;ets;extLiq]
   /phantom liquidity
   
   bkCol:key bk; bk:value bk;	  
-  if[any bk<0;'negativequantity];
   
   if[1=ets`EventType;
 	 if[(idx:bk?ets`Price)<count bk;bk[idx+1]+:ets`Size;:bkCol!(ets[`time],1_bk)];
@@ -63,14 +62,14 @@ replay:{[bk;ets;extLiq]
   if[2=ets`EventType; idx:bk?ets`Price; 
        if[idx>=count bk;:bkCol!bk]; 
 	   if[(first bk[idx+1])<=ets`Size;bk:@[bk;(idx,idx+1);:;0n];:bkCol!(ets[`time],updM[bkCol!bk;extLiq])];
-	   /for simulation when the order is executed by prior simulated orders and hence no longer has the original quantity to be removed, in which case remove the remaining quantity
+	   /for simulation when the order is executed by prior simulated orders and hence no longer has the original quantity to be removed, in which case remaining quantity is removed.
        bk[idx+1]-:ets`Size;:bkCol!(ets[`time],1_bk)];
 	   
   if[3=ets`EventType; idx:bk?ets`Price; 
        if[idx>=count bk;:bkCol!(ets[`time],1_bk)]; 
 	   /the change happens out of L5 market and not in consideration here	   
 	   if[(first bk[idx+1])<=ets`Size;bk:@[bk;(idx,idx+1);:;0n];:bkCol!(ets[`time],updM[bkCol!bk;extLiq])];
-	   /for simulation when the order is executed by prior simulated orders and hence no longer has the original quantity to be removed, in which case remove the remaining quantity
+	   /for simulation when the order is executed by prior simulated orders and hence no longer has the original quantity to be removed, in which case remaining quantity is removed.
 	   bk:@[bk;idx+1;-;ets`Size];:bkCol!(ets[`time],1_bk)]
   
   /need to factor in trading stats
