@@ -47,12 +47,12 @@ updM:{b:x,y;
 
 replay:{[bk;ets;extLiq]
    /bk-initbk; ets-message; extLiq-OB6 
-   bkCol:key bk; bk:value bk;	
+
 	       
   if[5=ets`EventType;:bk];
   /phantom liquidity-5: Execution of a hidden limit order
   /no impact on OB
-  
+  bkCol:key bk; bk:value bk;	
   
 
   /1: Submission of a new limit order

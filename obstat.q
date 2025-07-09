@@ -13,7 +13,7 @@ rnd:{y*floor x%y}
 OBstats:{[res]
 
 	trades:select time,EventType,Size,Price from message where EventType in (4,5);
-	avgTsize:exec select avg Size from trades; /not the same as liquidity on the orderbook
+	avgTsize:exec avg Size from trades; /not the same as liquidity on the orderbook
 	Tnum:count trades;
 	TQ:select time, askprice_1,asksize_1,bidprice_1,bidsize_1,(ttype:EventType),(tsize:Size),(tprice:Price) from (res lj 1!trades);
 	TQ:update wMid:((bidprice_1*bidsize_1) + askprice_1*asksize_1)%(bidsize_1 + asksize_1) from TQ;
@@ -35,6 +35,7 @@ OBstats:{[res]
 	/The reduction in variance from snapshots to aggregated windows indicates liquidity imbalances are transient.
     :`num_trades`avgTradeSize`ExCostWMid_type4`avgTradeSpread_1m`imbalanceRatio_10s!(Tnum;avgTsize;(rnd[mincst;0.001],rnd[maxcst;0.001]);(minSpr,maxSpr);(rnd[value min resIMB;0.001],rnd[value max resIMB;0.001]))}
 
+/measure percentage liquidity from each level of the book, bid and ask side,
 Depth:{[tab] 
 	asklst:`$("asksize_"),/: ("1";"2";"3";"4";"5");
 	avgASK:(+/){?[x;();0b;(enlist y)!enlist (avg;y)]}[tab;] each asklst;
@@ -45,7 +46,7 @@ Depth:{[tab]
 
 imbRatio:{[tab]
 	tab:update Tbidsizes:(bidsize_1+bidsize_2+bidsize_3+bidsize_4+bidsize_5) from tab;
-        tab:update Tasksizes:(asksize_1+asksize_2+asksize_3+asksize_4+asksize_5) from tab;
+    tab:update Tasksizes:(asksize_1+asksize_2+asksize_3+asksize_4+asksize_5) from tab;
 	tab:update Tvol:bidsize_1+bidsize_2+bidsize_3+bidsize_4+bidsize_5+asksize_1+asksize_2+asksize_3+asksize_4+asksize_5 from tab;
 	imbRatio:  select (Tbidsizes - Tasksizes)%Tvol from tab;
 	:first value imbRatio}
