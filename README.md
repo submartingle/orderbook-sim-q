@@ -16,7 +16,7 @@ This project implements a simulation and analytics framework for a limit order b
 
 ## 🔍 Key Features
 
-- ✅ Reconstructs the order book from raw message/event data
+- ✅ Reconstructs the order book from raw message/event data, allow snapshot at different specified time intervals, 10s,30s,1m etc.
 - 📊 Tracks key order book metrics like bid-ask spread, liquidity depth, and imbalance
 - 📉 Simulates large market orders and evaluates:
   - Market depth impact
