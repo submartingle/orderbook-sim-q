@@ -84,7 +84,7 @@ N:15 /N: number of scenarios
 
 /simulated trade times every 30min until market close
 tlist:`time$(first message[`time])+0D00:30:00.000000000+0D00:20:00.000000000*til 15
-qlist:N#1400
+qlist:N#3400
 bors:N?`buy`sell
 
 /md_sim[;;]' [tlist;qlist;bors]

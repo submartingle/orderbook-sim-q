@@ -14,9 +14,13 @@ OB6:flip (-4#cols OB6)!OB6[-4#cols OB6]       /taking additional 4 columns askpr
 initbk:OB5@0; l:count OB5;
 
 
+		   
+//limit order book reconstruction algorithm//
+
+\d .util
 
 addM:{[b;dir;p;s]
-          colb:key b;
+      colb:key b;
 	  if[dir=-1; 
 	  ap:raze b[lstKey where (string lstKey:key b) like\: "askprice*"];
 	  as:raze b[lstKey where (string lstKey:key b) like\: "asksize*"];
@@ -42,46 +46,45 @@ updM:{b:x,y;
 	   ask:10#ask[where ask<>0n];
 	   bid:10#bid[where bid<>0n];
 	   :raze (2 cut ask),'(2 cut bid)}
-		   
-//limit order book reconstruction algorithm//
+	   
+
+/EventType1: Submission of a new limit order
+f1:{[bk;ets;extLiq]
+     bkCol:key bk; bk:value bk;
+	if[(idx:bk?ets`Price)<count bk;bk[idx+1]+:ets`Size;:bkCol!(ets[`time],1_bk)];
+		:bkCol!(ets[`time],addM[bkCol!bk;ets`Direction;ets`Price;ets`Size])}
+		
+/EventType2: Cancellation (partial deletion of a limit order)	
+f2:{[bk;ets;extLiq]
+     bkCol:key bk; bk:value bk;idx:bk?ets`Price; 
+     if[idx>=count bk;:bkCol!bk]; 
+	 if[(first bk[idx+1])<=ets`Size;bk:@[bk;(idx,idx+1);:;0n];:bkCol!(ets[`time],updM[bkCol!bk;extLiq])];
+	 /for simulation when the order is executed by prior simulated orders and hence no longer has the original quantity to be removed,  remaining quantity is removed.
+      bk[idx+1]-:ets`Size;:bkCol!(ets[`time],1_bk)}
+	  
+/EventType3: Deletion (total deletion of a limit order)
+/EventType4: Execution of a visible limit order
+f3:{[bk;ets;extLiq]
+     bkCol:key bk; bk:value bk;	idx:bk?ets`Price; 
+     if[idx>=count bk;:bkCol!(ets[`time],1_bk)]; 
+	  /the change happens out of L5 market	   
+	 if[(first bk[idx+1])<=ets`Size;bk:@[bk;(idx,idx+1);:;0n];:bkCol!(ets[`time],updM[bkCol!bk;extLiq])];
+	  /for simulation when the order is executed by prior simulated orders and hence no longer has the original quantity to be removed,  remaining quantity is removed.
+	   bk:@[bk;idx+1;-;ets`Size];:bkCol!(ets[`time],1_bk)}
+	   
+/EventType5: Execution of a hidden limit order (phantom liquidity)
+f5:{[bk;ets;extLiq] :bk}
+
+\d .
+
+rep:(1 2 3 4 5)!(.util.f1;.util.f2;.util.f3;.util.f3;.util.f5) 
+	   
+
+
 
 replay:{[bk;ets;extLiq]
    /bk-initbk; ets-message; extLiq-OB6 
-
-	       
-  if[5=ets`EventType;:bk];
-  /phantom liquidity-5: Execution of a hidden limit order
-  /no impact on OB
-  bkCol:key bk; bk:value bk;	
-  
-
-  /1: Submission of a new limit order
-  if[1=ets`EventType;
-	if[(idx:bk?ets`Price)<count bk;bk[idx+1]+:ets`Size;:bkCol!(ets[`time],1_bk)];
-		:bkCol!(ets[`time],addM[bkCol!bk;ets`Direction;ets`Price;ets`Size])];
-
-  /2: Cancellation (partial deletion of a limit order)
-  if[2=ets`EventType; idx:bk?ets`Price; 
-       if[idx>=count bk;:bkCol!bk]; 
-	   if[(first bk[idx+1])<=ets`Size;bk:@[bk;(idx,idx+1);:;0n];:bkCol!(ets[`time],updM[bkCol!bk;extLiq])];
-	   /for simulation when the order is executed by prior simulated orders and hence no longer has the original quantity to be removed,  remaining quantity is removed.
-       bk[idx+1]-:ets`Size;:bkCol!(ets[`time],1_bk)];
-
-  /3: Deletion (total deletion of a limit order)
-  if[3=ets`EventType; idx:bk?ets`Price; 
-       if[idx>=count bk;:bkCol!(ets[`time],1_bk)]; 
-	   /the change happens out of L5 market	   
-	   if[(first bk[idx+1])<=ets`Size;bk:@[bk;(idx,idx+1);:;0n];:bkCol!(ets[`time],updM[bkCol!bk;extLiq])];
-	   /for simulation when the order is executed by prior simulated orders and hence no longer has the original quantity to be removed,  remaining quantity is removed.
-	   bk:@[bk;idx+1;-;ets`Size];:bkCol!(ets[`time],1_bk)]
-  
-  /4: Execution of a visible limit order
-  if[4=ets`EventType; idx:bk?ets`Price; 
-      if[idx>=count bk;:bkCol!(ets[`time],1_bk)]; 
-	  /could be partial execution
-	   if[(first bk[idx+1])<=ets`Size;bk:@[bk;(idx,idx+1);:;0n];:bkCol!(ets[`time],updM[bkCol!bk;extLiq])];
-	  /for simulation when the order is executed by prior simulated orders and hence no longer has the original quantity to be executed against, in which case only execute the remaining quantity
-	   bk:@[bk;idx+1;-;ets`Size];:bkCol!(ets[`time],1_bk)]}
+   rep[ets`EventType;bk;ets;extLiq]}
 	  
 
 
