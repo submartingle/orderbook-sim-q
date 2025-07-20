@@ -48,5 +48,5 @@ imbRatio:{[tab]
 	tab:update Tbidsizes:(bidsize_1+bidsize_2+bidsize_3+bidsize_4+bidsize_5) from tab;
     tab:update Tasksizes:(asksize_1+asksize_2+asksize_3+asksize_4+asksize_5) from tab;
 	tab:update Tvol:bidsize_1+bidsize_2+bidsize_3+bidsize_4+bidsize_5+asksize_1+asksize_2+asksize_3+asksize_4+asksize_5 from tab;
-	imbRatio:  select (Tbidsizes - Tasksizes)%Tvol from tab;
-	:first value imbRatio}
+	:exec (Tbidsizes - Tasksizes)%Tvol from tab;
+	}
