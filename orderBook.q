@@ -22,9 +22,9 @@ initbk:OB5@0; l:count OB5;
 addM:{[b;dir;p;s]
       colb:key b;
 	  if[dir=-1; 
-	  ap:raze b[lstKey where (string lstKey:key b) like\: "askprice*"];
-	  as:raze b[lstKey where (string lstKey:key b) like\: "asksize*"];
-	  bid:raze b[lstKey where (string lstKey:key b) like\: "b*"];
+	  ap:raze b[colb where (string colb) like\: "askprice*"];
+	  as:raze b[colb where (string colb) like\: "asksize*"];
+	  bid:raze b[colb where (string colb) like\: "b*"];
 	  i:bin[ap;p]; 
 	  if[i>3;: (value 1_b)];
 	  /out of L5 market, adjust for other depths, return book as it is
@@ -32,17 +32,18 @@ addM:{[b;dir;p;s]
 	  :raze (2 cut nask),'(2 cut bid)]		  
 	  
 	  if[dir=1;
-	  bp:raze b[lstKey where (string lstKey:key b) like\: "bidprice*"];
-	  bs:raze b[lstKey where (string lstKey:key b) like\: "bidsize*"];
-	  ask:raze b[lstKey where (string lstKey:key b) like\: "a*"];
+	  bp:raze b[colb where (string colb) like\: "bidprice*"];
+	  bs:raze b[colb where (string colb) like\: "bidsize*"];
+	  ask:raze b[colb where (string colb) like\: "a*"];
 	  i:bin[bp:reverse bp;p];
 	  bs:reverse bs;
 	  nbid: raze (reverse -5#(((i+1)#bp),p,(i+1)_bp)),'(reverse -5#(((i+1)#bs),s,(i+1)_bs));
 	  :raze (2 cut ask),'(2 cut nbid)]}		
 	  
 updM:{b:x,y;       		   
-	   ask:raze b[lstKey where (string lstKey:key b) like\: "a*"];
-	   bid:raze b[lstKey where (string lstKey:key b) like\: "b*"];
+      colb:key b;
+	   ask:raze b[colb where (string colb) like\: "a*"];
+	   bid:raze b[colb where (string colb) like\: "b*"];
 	   ask:10#ask[where ask<>0n];
 	   bid:10#bid[where bid<>0n];
 	   :raze (2 cut ask),'(2 cut bid)}
