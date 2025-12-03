@@ -26,7 +26,7 @@ addM:{[b;dir;p;s]
 	  as:raze b[colb where (string colb) like\: "asksize*"];
 	  bid:raze b[colb where (string colb) like\: "b*"];
 	  i:bin[ap;p]; 
-	  if[i>3;: (value 1_b)];
+	  if[i>3;: (value 1_b)];  /first element of b is time field
 	  /out of L5 market, adjust for other depths, return book as it is
 	  nask:raze (((i+1)#ap),p,(i+1)_(-1_ap)),'(((i+1)#as),s,(i+1)_(-1_as));
 	  :raze (2 cut nask),'(2 cut bid)]		  
@@ -112,7 +112,7 @@ bookSnap:{[tab;int] res:?[tab;();(enlist `timestamp)! enlist (xbar;int;`time.min
 checkOutput:((1_cols res)#res)[til l]~OB5[til l];
 if[checkOutput; show "result matches with the LOBSTER orderbook"];
 
-/duplicate in price quote on different market depth
+/duplicate in price quote on different market depth, note res[pricecols] return n by count[res] matrix, res[pricecols][0] is the first price column in the res table 
 pricecols: cols[res] where cols[res] like "*price*"
 if[null first where 10>({count distinct res[pricecols][;x]} each til count res);show "no duplicate in prices"];
 
