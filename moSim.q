@@ -24,9 +24,9 @@ md_sim:{[t;q;buysell]
 	
 	
     if[buysell=`buy; 
-	  ap:raze b[lstKey where (string lstKey:key b) like\: "askprice*"];
-	  as:raze b[lstKey where (string lstKey:key b) like\: "asksize*"];
-	  bid:20#raze b[lstKey where (string lstKey:key b) like\: "b*"];
+	  ap:raze b[lstKey where (lstKey:key b) like "askprice*"];
+	  as:raze b[lstKey where lstKey like "asksize*"];
+	  bid:20#raze b[lstKey where lstKey like "b*"];
       exPrice:(l:deltas[q&sums as]) wavg ap;
    	  bestMPrice:ap[0]%10000;
 	  show ("execution price ",(string (exPrice))," vs. best market price ",string (ap[0]));
@@ -35,9 +35,9 @@ md_sim:{[t;q;buysell]
 	  nmarket:raze (2 cut nask),'(2 cut bid);if[any nmarket<0;'negativevalue]];
 
     if[buysell=`sell; 
-	  bp:raze b[lstKey where (string lstKey:key b) like\: "bidprice*"];
-	  bs:raze b[lstKey where (string lstKey:key b) like\: "bidsize*"];
-	  ask:20#raze b[lstKey where (string lstKey:key b) like\: "a*"];
+	  bp:raze b[lstKey where (lstKey:key b) like "bidprice*"];
+	  bs:raze b[lstKey where lstKey like "bidsize*"];
+	  ask:20#raze b[lstKey where lstKey like "a*"];
       exPrice:(l:deltas[q&sums bs]) wavg bp;
 	  bestMPrice:bp[0]%10000;
 	  show ("execution price ",(string (exPrice))," vs. best market price ",string (bp[0]));
