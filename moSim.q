@@ -47,21 +47,7 @@ md_sim:{[t;q;buysell]
 	  
 	  initb:(`time,cols OB5)!(s,20#nmarket);
 	  : (processRows[initb;m;(numSim-1)#OB];imbpre;exPrice;bestMPrice)}
-	  
-	  
-
-/simulate impact of one large market order on the orderbook 
-mktRec:{[i] 
-	   resBook:md_sim[tlist[i];qlist[i];bors[i]];
-	   idx:0;
-	   while[(idx<10000)&(abs(imbRatio[resBook[0;idx]]-resBook[1]))>tolerance;idx+:1];
-	   $[idx>10000;
-	     [0N!`noRecovery;0N!"tradetime: ", string tlist[i];:()];
-	      (resBook[0][`time][idx];rnd[resBook[1];0.01];rnd[imbRatio[resBook[0;idx]];0.01];resBook[2]%10000;resBook[3])]
-		}  
-		  
-	   /show "market recovery at time: ", (string resBook[`time][idx]);
-	   /show "imbalance Ratio pretrade: ",(string rnd[imbpre;0.01])," first recovered imbratio: ", string rnd[l[idx];0.01]}
+	
 	   
 
 
@@ -74,9 +60,7 @@ mktRecIteration:{[i]
 	      [0N!`noRecovery;0N!"tradetime: ", string tlist[i];:0N];
 	       (resBook[0][`time][idx];rnd[resBook[1];0.01];rnd[imbRatio[resBook[0;idx]];0.01];resBook[2]%10000;resBook[3])]
 		}
-		
-		
-		
+				
 	   
 
 
