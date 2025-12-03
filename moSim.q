@@ -65,11 +65,6 @@ mktRecIteration:{[i]
 
 
 N:50 /N: number of scenarios
-/simulated time til one hour before market close
-/tlist:`time$(first message[`time])+N?0D05:30:00.000000000
-/qlist:22000+N?19000
-
-
 
 /simulated trade times every x min until market close
 tlist:`time$(first message[`time])+0D00:30:00.000000000+0D00:06:50.000000000*til N
