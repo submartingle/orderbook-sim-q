@@ -29,7 +29,7 @@ md_sim:{[t;q;buysell]
 	  bid:20#raze b[lstKey where lstKey like "b*"];
       exPrice:(l:deltas[q&sums as]) wavg ap;
    	  bestMPrice:ap[0]%10000;
-	  show ("execution price ",(string (exPrice))," vs. best market price ",string (ap[0]));
+	  show ("execution price ",(string exPrice)," vs. best market price ",string ap[0]);
   	  nq:as-l;if[not any nq;'liquiditydrainedout];
 	  nask:raze (10#ap[where nq<>0]),'(10#nq[where nq<>0]);
 	  nmarket:raze (2 cut nask),'(2 cut bid);if[any nmarket<0;'negativevalue]];
@@ -40,7 +40,7 @@ md_sim:{[t;q;buysell]
 	  ask:20#raze b[lstKey where lstKey like "a*"];
       exPrice:(l:deltas[q&sums bs]) wavg bp;
 	  bestMPrice:bp[0]%10000;
-	  show ("execution price ",(string (exPrice))," vs. best market price ",string (bp[0]));
+	  show ("execution price ",(string exPrice)," vs. best market price ",string bp[0]);
   	  nq:bs-l;if[not any nq;'liquiditydrainedout];	 
 	  nbid:raze (10#bp[where nq<>0]),'(10#nq[where nq<>0]);
 	  nmarket:raze (2 cut ask),'(2 cut nbid);if[any nmarket<0;'negativevalue]];	  	  
