@@ -2,6 +2,9 @@
 
 This project implements a simulation and analytics framework for a limit order book using **LOBSTER level-10 order book data**, written in **KDB+/Q**. It is designed to help evaluate the microstructure behavior of markets, including order book replay, metrics tracking, and the impact of simulated market orders.
 
+NOTE:
+This repository is a personal portfolio project created independently. It is shared for review/evaluation only. Please do not copy, redistribute, or use any part of this code in commercial or client deliverables without my written permission.
+
 ---
 
 ## 📁 Project Structure
