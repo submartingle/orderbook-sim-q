@@ -58,7 +58,7 @@ f1:{[bk;ets;extLiq]
 /EventType2: Cancellation (partial deletion of a limit order)	
 f2:{[bk;ets;extLiq]
      bkCol:key bk; bk:value bk;idx:bk?ets`Price; 
-     if[idx>=count bk;:bkCol!bk]; 
+     if[idx>=count bk;:bkCol!(ets[`time],1_bk)]; 
 	 if[(first bk[idx+1])<=ets`Size;bk:@[bk;(idx,idx+1);:;0n];:bkCol!(ets[`time],updM[bkCol!bk;extLiq])];
 	 /for simulation when the order is executed by prior simulated orders and hence no longer has the original quantity to be removed,  remaining quantity is removed.
       bk[idx+1]-:ets`Size;:bkCol!(ets[`time],1_bk)}
