@@ -3,7 +3,7 @@
 / depth consumption, execution cost, and imbalance recovery dynamics.
 / Key design change from original: global state (imbpre, exPrice, bestMPrice) has been
 / eliminated. marketOrderImpact returns a dict; runScenario is fully pure.
-/ Depends on: ob_core.q, ob_stats.q (.stats.imbRatio), ob_replay.q (.replay.replayMessages)
+/ Depends on: ob_util.q, ob_stats.q (.stats.imbRatio), ob_replay.q (.replay.replayMessages)
 
 / Threshold for declaring imbalance recovery (abs deviation from pre-trade level)
 

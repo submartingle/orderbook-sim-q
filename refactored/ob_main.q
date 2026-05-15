@@ -1,8 +1,8 @@
 / Entry point for the order book simulation.
-/ Load order: ob_core -> ob_stats -> ob_replay -> ob_mosim -> this file
+/ Load order: ob_util -> ob_stats -> ob_replay -> ob_mosim -> this file
 / Usage: q refactored/ob_main.q
 
-\l refactored/ob_core.q
+\l refactored/ob_util.q
 \l refactored/ob_stats.q
 \l refactored/ob_replay.q
 \l refactored/ob_mosim.q

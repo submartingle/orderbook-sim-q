@@ -1,6 +1,6 @@
 / Limit order book reconstruction from LOBSTER message events.
 / All functions are pure: state is passed as parameters; no globals are modified.
-/ Depends on: ob_core.q (for .util namespace)
+/ Depends on: ob_util.q (for .util namespace)
 
 / Insert a new price/size entry into the correct level of the book.
 / Returns updated flat book values (time field excluded).

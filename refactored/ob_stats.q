@@ -1,5 +1,5 @@
 / Order book analytics: imbalance, spread, depth, and execution cost metrics.
-/ Depends on: ob_core.q (for .util.rnd and .util.PRICE_SCALE)
+/ Depends on: ob_util.q (for .util.rnd and .util.PRICE_SCALE)
 
 / Order book imbalance ratio: (bid depth - ask depth) / total depth.
 / Accepts either a single-row dict or a table; returns scalar or vector accordingly.
