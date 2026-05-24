@@ -130,7 +130,7 @@ vector. `like\:` with a single string pattern on the right is redundant.
 
 // Scan — all intermediate values
 (+\) 1 2 3         // 1 3 6 (no seed — excludes it)
-0 +\ 1 2 3         // 0 1 3 6 (explicit seed 0 — included in result)
+0 +\ 1 2 3         // 1 3 6 (explicit seed 0 — included in result)
 
 // Convergence: apply until result stops changing
 {x*x}/ 0.5        // 0.0 (converges)
