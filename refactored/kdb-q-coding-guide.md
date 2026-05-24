@@ -55,10 +55,10 @@ type ()         // 0h — generic empty
 type `long$()   // 7h — typed empty (has a type, count is 0)
 ```
 
-**String is a char vector, not a list of chars:**
+**String is a char vector:**
 ```q
 type "abc"           // 10h — char vector (string)
-type ("a";"b";"c")  // 0h  — generic list of chars
+type ("a";"b";"c")  // 10h
 ```
 
 **Symbol interning — symbols live forever:**
