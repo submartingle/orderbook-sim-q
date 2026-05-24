@@ -186,7 +186,7 @@ exec sym from trade // qSQL column extraction; extra query overhead, but not a r
 
 **Check count before expensive operations:**
 ```q
-if[count r:select from trade where ...;
+if[bound>count r:select from trade where ...;
    // expensive aggregation
   ]
 ```
