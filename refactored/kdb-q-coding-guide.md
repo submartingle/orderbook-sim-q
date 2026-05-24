@@ -64,10 +64,10 @@ type ("a";"b";"c")  // 10h
 **Symbol interning — symbols live forever:**
 ```q
 // DANGEROUS: each unique string becomes a permanent symbol
-`$string each til 1000000
+`$string til 1000000
 
 // SAFE for high-cardinality data: keep as strings or use enumerations
-string each til 1000000
+string til 1000000
 ```
 
 **Symbols with hyphens can't use backtick syntax:**
