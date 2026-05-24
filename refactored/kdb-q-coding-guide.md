@@ -159,8 +159,7 @@ off-by-one error with `\`.**
 {expensive_fn x} peach large_list
 ```
 
-- Workers receive a copy of the process state at fork time — global modifications
-  inside a `peach` worker are lost when results are merged back.
+- peach workers don't share state with the master in a writable way. With slave threads, attempting to amend globals raises 'noupdate. With secondary processes (.z.pd), each worker is a fully separate process; any state changes stay local to that worker.
 - Not worth it for fast, small operations — serialization overhead dominates.
 
 ---
