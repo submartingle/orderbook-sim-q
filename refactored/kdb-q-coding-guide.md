@@ -172,7 +172,7 @@ off-by-one error with `\`.**
 select from trade where sym=`AAPL
 
 // `g# (grouped, hash): O(1) amortised — use for in-memory tables
-update sym:`g#sym from `trade
+update `g#sym from `trade
 
 // `p# (parted, sorted): O(log n) binary search — use for on-disk partitioned data
 // applied automatically on `sym in a standard HDB layout
