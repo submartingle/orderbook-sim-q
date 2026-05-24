@@ -211,8 +211,8 @@ value "select from trade where date=2024.01.01"
 
 **Symbol operations over string operations:**
 ```q
-// Slow: convert to string to match
-select from t where string[sym] like "AAPL*"
+// Slow: (no string conversion is required when comparing symbol using like)
+select from t where sym like "AAPL*"
 
 // Fast: symbol membership
 select from t where sym in `AAPL`AAPLV
