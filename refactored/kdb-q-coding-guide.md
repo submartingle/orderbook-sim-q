@@ -142,7 +142,7 @@ vector. `like\:` with a single string pattern on the right is redundant.
 {x<1000} {x*2}/ 1 // 1024
 ```
 
-**Seeded scan includes the seed; seedless scan does not. This is the most common
+** For V1 functions that takes only one argument, seeded scan includes the seed; seedless scan does not. This is the most common
 off-by-one error with `\`.**
 
 ### Each-Prior (`':`)
