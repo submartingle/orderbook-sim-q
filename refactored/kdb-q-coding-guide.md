@@ -1,7 +1,7 @@
 # kdb+/q Coding Guide — Key Patterns and Traps
 
 A distilled reference for writing idiomatic, correct q. Covers language behaviour,
-performance, and ecosystem integration. Excludes framework-specific (TorQ) content.
+performance, and ecosystem integration. 
 
 ---
 
