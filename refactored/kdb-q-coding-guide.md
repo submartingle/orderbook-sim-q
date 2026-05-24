@@ -223,11 +223,10 @@ select from t where sym in `AAPL`AAPLV
 ## 4. Error Handling
 
 ```q
-// Unary trap: @[function; arg; error_handler]
-result:@[{1+`a}; ::; {0N}]       // returns 0N on error
-@[f; arg; {.lg.e[`label;x]}]     // log error and continue
+// Unary trap at: @[function; arg; error_handler]
+result:@[{1+x}; `a; show ]      
 
-// Binary trap: .[function; arg_list; error_handler]
+//higher rank function trap: .[function; arg_list; error_handler]
 .[f; (x;y;z); {'"rethrow: ",x}]  // re-signal with context
 
 // Signal an error
@@ -235,7 +234,7 @@ result:@[{1+`a}; ::; {0N}]       // returns 0N on error
 '"message string"   // signal a string error
 
 // Re-raise after catching
-@[dangerousfn; arg; {'x}]
+@[dangerousfn; arg; {.log.error x; 'x}]      / proper logger then re-raise
 ```
 
 **Scoping — error handler fires in its own scope:**
