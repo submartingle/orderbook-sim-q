@@ -314,7 +314,7 @@ result:h[]   // block until remote sends back a result
   Never assume enum metadata survives an IPC round-trip.
 
 **Compression:**
-- Automatically applied for messages >2000 bytes when not on localhost.
+- IPC messages may be automatically compressed when >2000 bytes, non-local, and compression reduces size by >50%.
 
 **After SIGINT on a blocking sync call:**
 - The handle is poisoned. Always `hclose` and reopen — subsequent calls on the same
