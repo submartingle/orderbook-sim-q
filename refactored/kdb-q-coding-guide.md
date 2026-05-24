@@ -181,7 +181,7 @@ update `g#sym from `trade
 **Column access vs table query:**
 ```q
 trade`sym          // direct column access — no copy, O(1)
-exec sym from trade // full table scan — slower
+exec sym from trade // qSQL column extraction; extra query overhead, but not a row-by-row scan without where/by clause
 ```
 
 **Check count before expensive operations:**
