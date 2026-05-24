@@ -133,7 +133,7 @@ vector. `like\:` with a single string pattern on the right is redundant.
 0 +\ 1 2 3         // 1 3 6 (explicit seed 0 — included in result)
 
 // Convergence: apply until result stops changing
-{x*x}/ 0.5        // 0.0 (converges)
+{x*x}/ [0.5]        // 0.0 (converges)
 
 // N-times: apply exactly N times
 3 {x*2}/ 1        // 8 (1→2→4→8)
