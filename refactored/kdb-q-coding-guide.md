@@ -280,7 +280,7 @@ f:{@[{1+`a};::;{"inner: ",x}]}
 
 **Null timestamp trap:**
 ```q
-0Np = 0Np    // 0b — null != null (use null[] instead)
+0Np = 0Np    // 1b
 null 0Np     // 1b
 ```
 
