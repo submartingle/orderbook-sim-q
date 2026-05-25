@@ -483,11 +483,11 @@ kx.q.system.load('/path/to/myfile.q')
 .z.wc:{[h] / WebSocket closed — clean up h}
 
 // Broadcast to all subscribers
-{neg[x] -8! msg} each handles
+{neg[x] -8!msg} each handles
 ```
 
 **WebSocket message format:**
-- Byte vector (`-8h`): serialised kdb+ — deserialise with `-9!`.
+- Byte vector (`4h`): serialised kdb+ — deserialise with `-9!`.
 - Char vector (`10h`): text/JSON — parse with `.j.k`.
 
 ---
