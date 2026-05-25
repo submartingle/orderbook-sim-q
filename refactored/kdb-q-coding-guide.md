@@ -31,15 +31,15 @@ Negative type code = atom. Positive = vector. `type 42` → `-7h`. `type 42 43` 
 
 **Null comparison — never use `=`:**
 ```q
-0N = 0N    // 0b — null is never equal to anything, including itself
+0N = 0N    // 1b
 null 0N    // 1b — always use null[] to test for null
-null each (0N; 1; 0n; 0Ni)  // 1b 0b 1b 1b
+null each (0N; 1; 0n; 0Ni)  // 1011b
 ```
 
-**Downcast overflow wraps to null silently:**
+**type overflow maps to infinity for the type:**
 ```q
-`int$2147483648   // 0Ni (overflow — no error raised)
-`short$40000      // 0Nh
+`int$2147483648   // 0Wi (overflow — map to infinity)
+`short$40000      // 0Wh
 ```
 
 **Mixed list promotion:**
