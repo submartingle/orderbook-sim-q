@@ -462,7 +462,7 @@ kx.q.system.load('/path/to/myfile.q')
 
 // Inbound — override .z.ph (GET) and .z.pp (POST)
 .z.ph:{
-  url:first "?" vs x;
+  url:first "?" vs x 0;
   result:.j.j select from trade where date=.z.d;
   .h.hn["200 OK"; "application/json"; result]}
 
@@ -474,7 +474,7 @@ kx.q.system.load('/path/to/myfile.q')
 ```q
 // Server-side handler
 .z.ws:{[msg]
-  data:$[-8h=type msg; -9! msg; .j.k msg];  // handles binary or JSON text
+  data:$[10h=type msg;.j.k msg;  -9! msg ];  // handles binary or JSON text
   // process and reply
   neg[.z.w] .j.j response}
 
