@@ -317,7 +317,7 @@ result:h[]   // block until remote sends back a result
 - IPC messages may be automatically compressed when >2000 bytes, non-local, and compression reduces size by >50%.
 
 **After SIGINT on a blocking sync call:**
-- The handle is poisoned. Always `hclose` and reopen — subsequent calls on the same
+- The handle is 'poisoned':the underlying OS socket/file descriptor is no longer valid for IPC use after the interrupted sync request Always `hclose` and reopen — subsequent calls on the same
   handle give "Bad file descriptor".
 
 **Serialisation:**
