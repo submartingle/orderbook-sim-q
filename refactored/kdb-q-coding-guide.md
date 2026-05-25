@@ -403,8 +403,8 @@ d1,d2
 `$"prefix_",/:string 1+til 5   // `prefix_1`prefix_2`prefix_3`prefix_4`prefix_5
 
 // String formatting
-"value: ",(string 42)
-.Q.s1 value                   // format any value as string without printing
+"value x: ",(string 42)    // do not use any q keyword to define variable or functions, value is one example as it is reserved
+.Q.s1 x                   // format any value as string without printing
 ```
 
 ---
