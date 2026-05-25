@@ -266,7 +266,7 @@ f:{@[{1+`a};::;{"inner: ",x}]}
 
 **Timestamp vs datetime — prefer timestamp:**
 ```q
-.z.p   // current UTC timestamp (nanosecond precision) — use this
+.z.p   // current UTC timestamp (nanosecond precision) 
 .z.P   // current local timestamp
 .z.z   // UTC datetime (float, millisecond) — deprecated
 ```
