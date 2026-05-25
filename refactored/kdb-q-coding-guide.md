@@ -445,7 +445,7 @@ kx.q.system.load('/path/to/myfile.q')
 .j.k .j.j `a`b`c    // ("a";"b";"c") — strings, not symbols
 
 // Nulls lose type information
-.j.j (0N;0n;0Nd)    // "null","null","null"
+.j.j (0N;0n;0Nd)    // "[null,null,\"\"]"
 
 // JS loses precision on longs > 2^53 — string-encode large IDs
 
