@@ -289,7 +289,7 @@ null 0Np     // 1b
 ## 6. IPC
 
 ```q
-h:hopen `:host:5000        // open sync handle (blocks forever by default)
+h:hopen `:host:5000        // open IPC handle; can block if no timeout
 hopen (`:host:5000; 2000)  // with 2000ms timeout — always use in production
 hclose h
 
