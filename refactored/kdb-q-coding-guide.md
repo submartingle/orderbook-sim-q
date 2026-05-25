@@ -428,7 +428,7 @@ kx.q.system.load('/path/to/myfile.q')
 ```
 
 **Key limitations:**
-- Attributes (`g#`, `p#`) are lost through Python round-trips.
+- Attributes (`g#`, `p#`) are lost through Python round-trips if converted into Python data model like Pandas.
 - Enumerations are de-enumerated on transmission.
 - Connections are not thread-safe — one connection per thread.
 - High-cardinality string lists → use `CharVector`, not `SymbolVector` (symbols intern permanently).
