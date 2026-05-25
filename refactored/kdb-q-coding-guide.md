@@ -464,7 +464,7 @@ kx.q.system.load('/path/to/myfile.q')
 .z.ph:{
   url:first "?" vs x 0;
   result:.j.j select from trade where date=.z.d;
-  .h.hn["200 OK"; "application/json"; result]}
+  .h.hy[`json;body]}
 
 // WARNING: default .z.ph evaluates arbitrary q — always override in production
 ```
