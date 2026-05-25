@@ -264,7 +264,7 @@ f:{@[{1+`a};::;{"inner: ",x}]}
 12:00:00.000 + 00:01           // 12:01:00.000 — time + minute = time
 ```
 
-**Timestamp vs datetime — prefer timestamp:**
+**Timestamp vs datetime — do NOT usde datetime:**
 ```q
 .z.p   // current UTC timestamp (nanosecond precision) 
 .z.P   // current local timestamp
