@@ -258,7 +258,7 @@ f:{@[{1+`a};::;{"inner: ",x}]}
 ```q
 2024.01.02 - 2024.01.01        // 1 — date minus date is an INT, not a date
 2024.01.01 + 1                 // 2024.01.02 — adding int to date gives date
-2024.01.01 + 1.0               // type error — float + date is not allowed
+2024.01.01 + 1.0               // No type error — return temporal float type, i.e. DateTime type
 
 12:00:00.000 + 00:01:00.000000000  // 12:01:00.000 — time + timespan = time
 12:00:00.000 + 00:01           // 12:01:00.000 — time + minute = time
