@@ -2,6 +2,19 @@
 
 This project implements a simulation and analytics framework for a limit order book using **LOBSTER level-10 order book data**, written in **KDB+/Q**. It is designed to help evaluate the microstructure behavior of markets, including order book replay, metrics tracking, and the impact of simulated market orders.
 
+## 🔄 Refactor Notes (May 2026)
+
+The codebase has been restructured from a monolithic three-file layout into a set of focused, namespaced modules under `refactored/`. Key improvements:
+
+- **Module separation** — `orderBook.q`, `obstat.q`, and `moSim.q` split into `ob_util.q`, `ob_replay.q`, `ob_stats.q`, `ob_mosim.q`, and `ob_main.q` (entry point)
+- **Namespaced functions** — each module owns a dedicated q namespace (`.util.*`, `.replay.*`, `.stats.*`, `.sim.*`); no more unscoped globals
+- **Pure functions** — market order simulation (`runScenario`, `marketOrderImpact`) rewritten without global state mutation, making results reproducible and composable
+- **Parallel scenario runs** — `peach` support added for running large batches of market order scenarios across slave threads
+- **Replay dispatch refactor** — event handler uses a dictionary-of-functions pattern instead of a chain of if/else branches
+- **Bug fix** — type-2 (order delete) events now correctly propagate the timestamp into the updated book state
+
+---
+
 NOTE:
 This repository is a personal portfolio project created independently. It is shared for review/evaluation only. Please do not copy, redistribute, or use any part of this code in commercial or client deliverables without my written permission.
 
