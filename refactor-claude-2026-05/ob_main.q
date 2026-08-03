@@ -1,11 +1,11 @@
 / Entry point for the order book simulation.
 / Load order: ob_util -> ob_stats -> ob_replay -> ob_mosim -> this file
-/ Usage: q refactored/ob_main.q
+/ Usage: q refactor-claude-2026-05/ob_main.q
 
-\l refactored/ob_util.q
-\l refactored/ob_stats.q
-\l refactored/ob_replay.q
-\l refactored/ob_mosim.q
+\l refactor-claude-2026-05/ob_util.q
+\l refactor-claude-2026-05/ob_stats.q
+\l refactor-claude-2026-05/ob_replay.q
+\l refactor-claude-2026-05/ob_mosim.q
 
 / ============================================================
 / Data loading
