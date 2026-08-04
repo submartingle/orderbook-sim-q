@@ -21,8 +21,6 @@ The codebase has been restructured from a monolithic three-file layout into a se
 - **Module separation** — `orderBook.q`, `obstat.q`, and `moSim.q` split into `ob_util.q`, `ob_replay.q`, `ob_stats.q`, `ob_mosim.q`, and `ob_main.q` (entry point)
 - **Namespaced functions** — each module owns a dedicated q namespace (`.util.*`, `.replay.*`, `.stats.*`, `.sim.*`); no more unscoped globals
 - **Pure functions** — market order simulation (`runScenario`, `marketOrderImpact`) rewritten without global state mutation, making results reproducible and composable
-- **Parallel scenario runs** — `peach` support added for running large batches of market order scenarios across slave threads
-- **Replay dispatch refactor** — event handler uses a dictionary-of-functions pattern instead of a chain of if/else branches
 - **Timestamp fix carried over** — the April 2026 fix in `orderBook.q` for stale timestamps on type-2 partial cancellations at levels outside the visible book is preserved in `.replay.evtCancelOrder`
 
 ---
