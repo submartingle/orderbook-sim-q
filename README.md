@@ -23,21 +23,7 @@ The codebase has been restructured from a monolithic three-file layout into a se
 - **Pure functions** — market order simulation (`runScenario`, `marketOrderImpact`) rewritten without global state mutation, making results reproducible and composable
 - **Parallel scenario runs** — `peach` support added for running large batches of market order scenarios across slave threads
 - **Replay dispatch refactor** — event handler uses a dictionary-of-functions pattern instead of a chain of if/else branches
-
----
-
-## 🐛 Notable Fixes
-
-**Stale timestamp on unmatched cancellations** — *fixed April 2026, in the original `orderBook.q`.*
-
-LOBSTER type-2 events are *partial cancellations*, and the message file records them at every price level — including levels outside the tracked level-10 book. When the cancelled price was not present in the visible book, the type-2 handler took an early-return branch and returned the book unchanged. Prices and sizes were correct (there was nothing to cancel), but the book's leading `time` field was left holding the **previous** event's timestamp:
-
-```q
-if[idx>=count bk; :bkCol!bk];                    / stale: keeps old time
-if[idx>=count bk; :bkCol!(ets[`time],1_bk)];     / fixed: stamps current event time
-```
-
-Every other exit path in the handler stamped the event time correctly, so the defect was silent and data-dependent — no error, no type mismatch, only a book state attributed to the wrong instant. It mattered because the interval snapshots (10s/30s/1m) and the market-order time-to-recovery metric both key off the book's own `time` field. The fix is carried through to `.replay.evtCancelOrder` in the refactored modules.
+- **Timestamp fix carried over** — the April 2026 fix in `orderBook.q` for stale timestamps on type-2 partial cancellations at levels outside the visible book is preserved in `.replay.evtCancelOrder`
 
 ---
 
