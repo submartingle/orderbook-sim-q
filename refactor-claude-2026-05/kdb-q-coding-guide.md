@@ -233,8 +233,26 @@ d1,d2                            // dict merge — right wins on conflict
 // 'value' is a reserved word — never use it as a variable name
 ```
 
-**Seeded scan includes the seed; seedless scan does not** — `0 +\ 1 2 3` vs `(+\) 1 2 3`.
+**Scan (`\`) — whether the initial value appears in the result depends on the function's rank.**
 The most common off-by-one error with `\`.
+
+*Unary (v1)* — the initial value is always the first result:
+```q
+3 {x*2}\ 1            / 1 2 4 8                  n-times
+{x<20}{x*2}\ 1        / 1 2 4 8 16 32            while
+({x div 2}\) 100      / 100 50 25 12 6 3 1 0     converge
+```
+
+*Binary (v2)* — the seed is consumed, never emitted:
+```q
+10 +\ 1 2 3           / 11 13 16   seed 10 is absent from the result
+(+\) 1 2 3            / 1 3 6      no seed: the first list element seeds it, so it does appear
+```
+
+Seedless binary scan uses the **first list element**, not an identity element — q cannot know an
+identity for an arbitrary function. `(-\) 1 2 3` gives `1 -1 -4`, whereas identity-seeding would
+give `0 -\ 1 2 3` → `-1 -3 -6`. For `+` and `*` the two coincide, which is what makes this easy to
+get wrong. If you need a binary scan's seed in the result, prepend it explicitly (`initBk,res`).
 
 ---
 

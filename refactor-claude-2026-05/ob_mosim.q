@@ -51,7 +51,11 @@
         nbid:raze (10#bp[where nq<>0]),'(10#nq[where nq<>0]);
         nmarket:raze (2 cut ask),'(2 cut nbid); if[any nmarket<0; 'negativevalue]];
     initb:(`time,cols ob5)!(s,20#nmarket);
-    book:.replay.replayMessages[initb;m;-1_obSlice];
+    / .replay.replayMessages prepends initb (the immediate post-order book) to its result.
+    / Recovery is measured from the first market update AFTER the order, so drop that leading
+    / row — otherwise idx 0 compares initb against imbPre and any order whose immediate
+    / perturbation is already within .sim.TOLERANCE reports a recovery time of exactly zero.
+    book:1_.replay.replayMessages[initb;m;-1_obSlice];
     :`book`imbPre`exPrice`bestMktPrice!(book;imbPre;exPrice;bestMktPrice)}
 
 / Run a single simulation scenario and return imbalance recovery statistics.
