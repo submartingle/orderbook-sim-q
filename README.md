@@ -19,8 +19,8 @@ The original three-file version is kept alongside the refactor rather than repla
 The codebase has been restructured from a monolithic three-file layout into a set of focused, namespaced modules under `refactor-claude-2026-05/`. Key improvements:
 
 - **Module separation** — `orderBook.q`, `obstat.q`, and `moSim.q` split into `ob_util.q`, `ob_replay.q`, `ob_stats.q`, `ob_mosim.q`, and `ob_main.q` (entry point)
-- **Namespaced functions** — each module owns a dedicated q namespace (`.util.*`, `.replay.*`, `.stats.*`, `.sim.*`); no more unscoped globals
-- **Pure functions** — market order simulation (`runScenario`, `marketOrderImpact`) rewritten without global state mutation, making results reproducible and composable
+- **Namespaced modules** — `.util` / `.replay` / `.stats` / `.sim`, defined with explicit dotted paths instead of `\d` switches, and extended to the stats and simulation code
+- **Named return values** — `marketOrderImpact` returns a keyed dict rather than a positional four-element list, so callers index by name instead of position
 - **Timestamp fix carried over** — the April 2026 fix in `orderBook.q` for stale timestamps on type-2 partial cancellations at levels outside the visible book is preserved in `.replay.evtCancelOrder`
 
 ---

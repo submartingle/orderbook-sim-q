@@ -1,8 +1,9 @@
 / Market order impact simulation.
 / Injects a simulated market order into the order book at a given time and measures
 / depth consumption, execution cost, and imbalance recovery dynamics.
-/ Key design change from original: global state (imbpre, exPrice, bestMPrice) has been
-/ eliminated. marketOrderImpact returns a dict; runScenario is fully pure.
+/ Change from original: md_sim already returned its results rather than mutating globals, but
+/ as a positional 4-list. marketOrderImpact returns a keyed dict instead, so callers index by
+/ name; the unused top-level imbpre/exPrice/bestMPrice initialisations are dropped.
 / Depends on: ob_util.q, ob_stats.q (.stats.imbRatio), ob_replay.q (.replay.replayMessages)
 
 / Threshold for declaring imbalance recovery (abs deviation from pre-trade level)
