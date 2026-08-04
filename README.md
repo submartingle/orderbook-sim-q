@@ -6,7 +6,7 @@ This project implements a simulation and analytics framework for a limit order b
 
 The simulator was written in q against LOBSTER level-10 sample data, developed between July 2025 and April 2026.
 
-In May 2026 the three-file layout was restructured into namespaced modules using **Claude Code**. I set the module boundaries, the namespace layout (`.util` / `.replay` / `.stats` / `.sim`) and the pure-function rewrite of the simulation path; the tool handled the mechanical restructuring, and I reviewed and tested the output. Commits from that pass carry `Co-Authored-By` trailers.
+In May 2026 the three-file layout was restructured into namespaced modules using **Claude Code**. I set the module boundaries, the namespace layout (`.util` / `.replay` / `.stats` / `.sim`) and the pure-function rewrite of the simulation path; the tool handled the mechanical restructuring, and I reviewed and tested the output. Commits made with the tool carry `Co-Authored-By` trailers.
 
 The original three-file version is kept alongside the refactor rather than replaced, so the before and after can be read side by side.
 
